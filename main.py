@@ -7,7 +7,7 @@ if __name__ == '__main__':
         args.device = f'cuda:{args.gpu}'
     else:
         args.device = 'cpu'
-
+    print('device:', args.device + torch.cuda.get_device_name(0))
     if not args.save_path:
         args.save_path = f'synthetic/{args.dataname}/{args.method}.csv'
     main_fn = execute_function(args.method, args.mode)

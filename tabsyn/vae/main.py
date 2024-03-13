@@ -86,7 +86,7 @@ def main(args):
     X_train_cat, X_test_cat = X_cat
 
     X_train_num, X_test_num = torch.tensor(X_train_num).float(), torch.tensor(X_test_num).float()
-    X_train_cat, X_test_cat =  torch.tensor(X_train_cat), torch.tensor(X_test_cat)
+    X_train_cat, X_test_cat = torch.tensor(X_train_cat), torch.tensor(X_test_cat)
 
 
     train_data = TabularDataset(X_train_num.float(), X_train_cat)
@@ -94,7 +94,8 @@ def main(args):
     X_test_num = X_test_num.float().to(device)
     X_test_cat = X_test_cat.to(device)
 
-    batch_size = 4096
+    # batch_size = 4096
+    batch_size = 40
     train_loader = DataLoader(
         train_data,
         batch_size = batch_size,
@@ -114,7 +115,8 @@ def main(args):
     optimizer = torch.optim.Adam(model.parameters(), lr=LR, weight_decay=WD)
     scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.95, patience=10, verbose=True)
 
-    num_epochs = 4000
+    # num_epochs = 4000
+    num_epochs = 1
     best_train_loss = float('inf')
 
     current_lr = optimizer.param_groups[0]['lr']

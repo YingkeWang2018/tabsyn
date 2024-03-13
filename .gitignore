@@ -1,0 +1,9 @@
+/__pycache__
+/.idea
+/baselines/*
+/baselines
+/baselines/goggle/model/__pycache__
+*.pyc
+baselines/goggle/model/__pycache__/Encoder.cpython-310.pyc
+*.csv
+/data

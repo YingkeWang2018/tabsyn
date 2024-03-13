@@ -331,7 +331,7 @@ def cat_encode(
             X = {k: v.values for k, v in X.items()}  # type: ignore[code]
     else:
         util.raise_unknown('encoding', encoding)
-    
+
     if return_encoder:
         return X, True, encoder # type: ignore[code]
     return (X, True)
@@ -408,7 +408,7 @@ def transform_dataset(
             return_normalizer=True
         )
         num_transform = num_transform
-    
+
     if dataset.X_cat is None:
         assert transformations.cat_nan_policy is None
         assert transformations.cat_min_frequency is None
@@ -416,7 +416,7 @@ def transform_dataset(
         X_cat = None
     else:
         X_cat = cat_process_nans(dataset.X_cat, transformations.cat_nan_policy)
-   
+
         if transformations.cat_min_frequency is not None:
             X_cat = cat_drop_rare(X_cat, transformations.cat_min_frequency)
         X_cat, is_num, cat_transform = cat_encode(
@@ -435,7 +435,7 @@ def transform_dataset(
             )
             X_cat = None
 
-        
+
     y, y_info = build_target(dataset.y, transformations.y_policy, dataset.task_type)
 
     dataset = replace(dataset, X_num=X_num, X_cat=X_cat, y=y, y_info=y_info)
@@ -486,13 +486,13 @@ class TabDataset(torch.utils.data.Dataset):
         self, dataset : Dataset, split : Literal['train', 'val', 'test']
     ):
         super().__init__()
-        
+
         self.X_num = torch.from_numpy(dataset.X_num[split]) if dataset.X_num is not None else None
         self.X_cat = torch.from_numpy(dataset.X_cat[split]) if dataset.X_cat is not None else None
         self.y = torch.from_numpy(dataset.y[split])
 
         assert self.y is not None
-        assert self.X_num is not None or self.X_cat is not None 
+        assert self.X_num is not None or self.X_cat is not None
 
     def __len__(self):
         return len(self.y)
