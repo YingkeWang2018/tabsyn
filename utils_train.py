@@ -54,6 +54,7 @@ def preprocess(dataset_path, task_type = 'binclass', inverse = False, cat_encodi
 
         X_num = (X_train_num, X_test_num)
         X_cat = (X_train_cat, X_test_cat)
+        y = (dataset.y['train'], dataset.y['test'])
 
 
         if inverse:
@@ -62,7 +63,7 @@ def preprocess(dataset_path, task_type = 'binclass', inverse = False, cat_encodi
 
             return X_num, X_cat, categories, d_numerical, num_inverse, cat_inverse
         else:
-            return X_num, X_cat, categories, d_numerical
+            return X_num, X_cat, categories, d_numerical, y, dataset.y_info
     else:
         return dataset
 

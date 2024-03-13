@@ -77,21 +77,21 @@ def main(args):
     encoder_save_path = f'{ckpt_dir}/encoder.pt'
     decoder_save_path = f'{ckpt_dir}/decoder.pt'
 
-    X_num, X_cat, categories, d_numerical = preprocess(data_dir, task_type = info['task_type'])
+    X_num, X_cat, categories, d_numerical, y, y_info = preprocess(data_dir, task_type = info['task_type'], concat=False)
 
-    X_train_num, _ = X_num
-    X_train_cat, _ = X_cat
 
     X_train_num, X_test_num = X_num
     X_train_cat, X_test_cat = X_cat
+    y_train, y_test = y
 
     X_train_num, X_test_num = torch.tensor(X_train_num).float(), torch.tensor(X_test_num).float()
     X_train_cat, X_test_cat = torch.tensor(X_train_cat), torch.tensor(X_test_cat)
-
+    y_train, y_test = torch.tensor(y_train), torch.tensor(y_test)
 
     train_data = TabularDataset(X_train_num.float(), X_train_cat)
 
     X_test_num = X_test_num.float().to(device)
+    y_test_num = y_test.float().to(device)
     X_test_cat = X_test_cat.to(device)
 
     # batch_size = 4096
